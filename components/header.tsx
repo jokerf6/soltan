@@ -5,12 +5,14 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Car, Phone, ShoppingCart, Menu, X } from "lucide-react"
 import { useCart } from "@/contexts/cart-context"
+import { usePathname } from "next/navigation"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const { getCartCount } = useCart()
-
+  const [activeLink, setActiveLink] = useState("")
+  const { getCartCount } = useCart();
+  const pathname = usePathname()
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
@@ -18,6 +20,13 @@ export function Header() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+ useEffect(() => {
+    if (typeof window !== 'undefined') {
+      console.log(window.location.pathname)
+      setActiveLink(window.location.pathname) // only the path
+    }
+  }, [pathname])
 
   return (
     <header
@@ -36,11 +45,13 @@ export function Header() {
 
 
         <nav className="hidden md:flex space-x-8">
-          {[{title:"الرئيسية", link:"/"}, {title:"المنتجات", link:"/products"}, {title:"المعرض", link:"/gallery"}, {title:"عن فابريكا", link:"/about"}, { title:"تواصل معنا", link:"/contact"}].map((item) => (
-            <Link
+       {[{title:"الرئيسية", link:"/"}, 
+       {title:"منتجاتنا", link:"products"},
+       {title:"المعرض", link:"gallery"}, {title:"عن فابريكا", link:"about"}, { title:"تواصل معنا", link:"contact"}].map((item) => (
+             <Link
               key={item.link}
               href={item.link}
-              className="relative hover:text-yellow-500 transition-colors duration-300 group"
+              className={`relative hover:text-yellow-500 transition-colors duration-300 group ${activeLink === "/"+item.link ? "text-yellow-500" : ""}`}
             >
               {item.title}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 group-hover:w-full"></span>
@@ -67,12 +78,14 @@ export function Header() {
         }`}
       >
         <nav className="bg-black/95 backdrop-blur-md border-t border-gray-800 px-4 py-4 space-y-4">
-       {[{title:"الرئيسية", link:"/"}, {title:"المنتجات", link:"/products"}, {title:"المعرض", link:"/gallery"}, {title:"عن فابريكا", link:"/about"}, { title:"تواصل معنا", link:"/contact"}].map((item) => (
+       {[{title:"الرئيسية", link:"/"}, 
+       {title:"منتجاتنا", link:"products"},
+       {title:"المعرض", link:"gallery"}, {title:"عن فابريكا", link:"about"}, { title:"تواصل معنا", link:"contact"}].map((item) => (
                     <Link
               key={item.link}
               href={item.link}
-              className="block hover:text-yellow-500 transition-colors duration-300"
-              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block ${activeLink === "/"+item.link ? "text-yellow-500" : ""} hover:text-yellow-500 transition-colors duration-300`}
+              onClick={() => {setIsMobileMenuOpen(false) }}
             >
               {item.title}
             </Link>

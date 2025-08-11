@@ -22,6 +22,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { Header } from "@/components/header";
+import { useRouter } from "next/navigation";
 
 const stats = [
   {
@@ -73,7 +74,7 @@ const services = [
 
 const team = [
   {
-    name: "أحمد السلطان",
+    name: "سامر سلطان",
     role: "المؤسس والمدير العام",
     image: "/images/team1.jpg",
     description: "خبرة 15 عام في مجال قطع غيار السيارات",
@@ -117,7 +118,7 @@ const values = [
 
 export default function AboutPage() {
   const [isVisible, setIsVisible] = useState(false);
-
+  const navigate = useRouter();
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -333,47 +334,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-black">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              فريق <span className="text-yellow-500">العمل</span>
-            </h2>
-            <p className="text-gray-300 text-lg">
-              تعرف على الأشخاص الذين يقفون وراء نجاحنا
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <Card
-                key={index}
-                className="bg-gray-800/50 backdrop-blur-sm border-gray-700 overflow-hidden hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-500 group animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <div className="aspect-square relative overflow-hidden">
-                  <Image
-                    src={member.image || "/placeholder.svg"}
-                    alt={member.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <CardContent className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-yellow-500 transition-colors duration-300">
-                    {member.name}
-                  </h3>
-                  <p className="text-yellow-500 font-medium mb-3">
-                    {member.role}
-                  </p>
-                  <p className="text-gray-400 text-sm">{member.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+  
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-yellow-500/10 to-orange-500/10">
@@ -385,11 +346,14 @@ export default function AboutPage() {
             تواصل معنا اليوم واحصل على استشارة مجانية
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
+            <Button
+            onClick={()=>navigate.push("https://wa.me/201092758520")}
+            className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
               <Phone className="w-5 h-5 mr-2" />
               اتصل بنا الآن
             </Button>
             <Button
+            onClick={()=>navigate.push("https://wa.me/201092758520")}
               variant="outline"
               className="border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black px-8 py-3"
             >

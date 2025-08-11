@@ -30,30 +30,31 @@ import {
   Headphones,
 } from "lucide-react";
 import { Header } from "@/components/header";
+import { useRouter } from "next/navigation";
 
 const contactInfo = [
   {
     icon: Phone,
     title: "اتصل بنا",
-    details: ["+20 123 456 7890", "+20 987 654 3210"],
+    details: ["201092758520+"],
     description: "متاحون للرد على استفساراتك",
   },
   {
     icon: Mail,
     title: "راسلنا",
-    details: ["info@fabrikasultan.com", "support@fabrikasultan.com"],
+    details: ["fhakem@gmail.com"],
     description: "نرد على رسائلك خلال 24 ساعة",
   },
   {
     icon: MapPin,
     title: "زورنا",
-    details: ["شارع الهرم، الجيزة", "مصر"],
+    details: ["6 اكتوبر  الحي الحادي عشر، الجيزة", "مصر"],
     description: "مفتوح من السبت للخميس",
   },
   {
     icon: Clock,
     title: "ساعات العمل",
-    details: ["السبت - الخميس: 9 ص - 9 م", "الجمعة: 2 م - 9 م"],
+    details: ["السبت - الخميس: 9 ص -12 م"],
     description: "خدمة العملاء متاحة دائماً",
   },
 ];
@@ -90,7 +91,7 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
-
+  const navigate = useRouter();
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -349,32 +350,31 @@ export default function ContactPage() {
                   <p className="text-gray-300 mb-6">
                     هل تحتاج مساعدة فورية؟ اتصل بنا الآن أو تواصل معنا عبر وسائل
                     التواصل الاجتماعي
-                  </p>
+                  </p>  
                   
                   <div className="space-y-4">
-                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                    <Button 
+                    onClick={()=>navigate.push("https://wa.me/201092758520")}
+                    className="w-full bg-green-600 hover:bg-green-700 text-white">
                       <Phone className="w-5 h-5 mr-2" />
-                      اتصل الآن: +20 123 456 7890
+                      اتصل الآن: 201092758520+
                     </Button>
                     
                     <div className="flex gap-4 justify-center">
                       <Button
+                    onClick={()=>navigate.push("https://www.facebook.com/fabrikasoltan/")}
+
                         variant="outline"
                         size="icon"
                         className="border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
                       >
                         <Facebook className="w-5 h-5" />
                       </Button>
+                  
                       <Button
                         variant="outline"
                         size="icon"
-                        className="border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white"
-                      >
-                        <Instagram className="w-5 h-5" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="icon"
+                        onClick={()=>navigate.push("https://www.tiktok.com/@alsoltan2_1")}
                         className="border-gray-400 text-gray-400 hover:bg-gray-400 hover:text-black"
                       >
                         <TikTokIcon className="w-5 h-5" />
@@ -419,7 +419,7 @@ export default function ContactPage() {
       </section>
 
       {/* Emergency Contact */}
-      <section className="py-12 bg-gradient-to-r from-red-500/10 to-orange-500/10">
+      {/* <section className="py-12 bg-gradient-to-r from-red-500/10 to-orange-500/10">
         <div className="container mx-auto px-4">
           <Card className="bg-red-900/20 border-red-500/30">
             <CardContent className="p-6 text-center">
@@ -430,12 +430,13 @@ export default function ContactPage() {
               </p>
               <Button className="bg-red-600 hover:bg-red-700 text-white">
                 <Phone className="w-5 h-5 mr-2" />
-                خط الطوارئ: +20 100 000 0000
+                خط الطوارئ: +201000000000
+                201092758520
               </Button>
             </CardContent>
           </Card>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

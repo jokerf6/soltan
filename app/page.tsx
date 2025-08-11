@@ -108,6 +108,7 @@ const features = [
 ];
 export default function LuxuryCarRental() {
   const [activeFilter, setActiveFilter] = useState("all");
+  const navigate = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const { addToCart } = useCart();
   const navigation = useRouter();
@@ -194,6 +195,7 @@ export default function LuxuryCarRental() {
                   ? "translate-y-0 opacity-100"
                   : "translate-y-10 opacity-0"
               }`}
+              onClick={()=> navigate.push("gallery")}
               style={{ transitionDelay: "0.9s" }}
             >
               اكتشف الأن
@@ -228,13 +230,13 @@ export default function LuxuryCarRental() {
             <div className="flex flex-wrap gap-4 animate-fade-in-right">
               {[
                 { key: "all", label: "كل الاقسام" },
-                { key: "suv", label: "وشوش" },
-                { key: "luxury", label: "اكصدامات" },
+                { key: "فرش", label: "فرش" },
+                { key: "شاشات", label: "شاشات" },
               ].map((filter) => (
                 <Button
                   key={filter.key}
                   variant="outline"
-                  className={`border-gray-600 text-white hover:bg-yellow-500 hover:border-yellow-500 hover:text-black transition-all duration-300 ${
+                  className={`border-gray-600 cursor-pointer text-white hover:bg-yellow-500 hover:border-yellow-500 hover:text-black transition-all duration-300 ${
                     activeFilter === filter.key
                       ? "bg-yellow-500 border-yellow-500 text-black"
                       : "bg-transparent"
@@ -251,7 +253,7 @@ export default function LuxuryCarRental() {
             {filteredCars.map((car, index) => (
               <Card
                 key={car.id}
-                className="bg-gray-800/50 backdrop-blur-sm border-gray-700 overflow-hidden hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-500 group animate-fade-in-up"
+                className="bg-gray-800/50 cursor-pointer backdrop-blur-sm border-gray-700 overflow-hidden hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-500 group animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <div className="aspect-video relative overflow-hidden">
@@ -282,7 +284,7 @@ export default function LuxuryCarRental() {
                     <div className="flex space-x-2">
                       <Button
                         className="bg-yellow-500 hover:bg-yellow-600 text-black group/btn"
-                        onClick={() => addToCart(car)}
+                        onClick={() => navigate.push("https://wa.me/201092758520")}
                       >
                         <Zap className="w-4 h-4 mr-1 group-hover/btn:animate-pulse" />
                         اشتري الان
@@ -492,7 +494,9 @@ export default function LuxuryCarRental() {
                 placeholder="العنوان"
                 className="mt-4 bg-gray-800/50 backdrop-blur-sm border-gray-700 text-white placeholder:text-gray-400 min-h-[100px] focus:border-yellow-500 transition-all duration-300"
               />
-              <Button className="mt-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black px-8 py-2 w-full md:w-auto transition-all duration-300 hover:scale-105">
+              <Button
+              onClick={()=>navigate.push("https://wa.me/201092758520")}
+              className="mt-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black px-8 py-2 w-full md:w-auto transition-all duration-300 hover:scale-105">
                 إرسال رسالة
               </Button>
             </div>

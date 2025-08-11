@@ -32,6 +32,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Header } from "@/components/header";
+import { useRouter } from "next/navigation";
 
 // نوع البيانات للعناصر في المعرض
 interface GalleryItem {
@@ -45,8 +46,6 @@ interface GalleryItem {
   tags: string[];
   date: string;
   author: string;
-  likes: number;
-  views: number;
   featured: boolean;
 }
 
@@ -62,8 +61,6 @@ const galleryItems: GalleryItem[] = [
     tags: ["BMW", "M3", "كت بودي", "رياضي"],
     date: "2024-01-15",
     author: "فريق السلطان",
-    likes: 245,
-    views: 1520,
     featured: true,
   },
   {
@@ -76,8 +73,6 @@ const galleryItems: GalleryItem[] = [
     tags: ["مرسيدس", "جرافيك", "تركيب", "تصميم"],
     date: "2024-01-10",
     author: "فريق السلطان",
-    likes: 189,
-    views: 2340,
     featured: true,
   },
   {
@@ -90,8 +85,6 @@ const galleryItems: GalleryItem[] = [
     tags: ["لكزس", "جلد", "إضاءة", "فاخر"],
     date: "2024-01-08",
     author: "فريق السلطان",
-    likes: 156,
-    views: 890,
     featured: false,
   },
   {
@@ -104,8 +97,6 @@ const galleryItems: GalleryItem[] = [
     tags: ["صوت", "مضخمات", "سماعات", "تركيب"],
     date: "2024-01-05",
     author: "فريق السلطان",
-    likes: 203,
-    views: 1780,
     featured: false,
   },
   {
@@ -118,8 +109,6 @@ const galleryItems: GalleryItem[] = [
     tags: ["LED", "إضاءة", "زينة", "جنوط"],
     date: "2024-01-03",
     author: "فريق السلطان",
-    likes: 178,
-    views: 1120,
     featured: false,
   },
   {
@@ -132,8 +121,6 @@ const galleryItems: GalleryItem[] = [
     tags: ["طلاء", "معدني", "عملية", "تجديد"],
     date: "2024-01-01",
     author: "فريق السلطان",
-    likes: 267,
-    views: 3200,
     featured: true,
   },
 ];
@@ -156,6 +143,7 @@ export default function GalleryPage() {
   const [isMuted, setIsMuted] = useState(false);
   const [likedItems, setLikedItems] = useState<number[]>([]);
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useRouter();
 
   useEffect(() => {
     setIsVisible(true);
@@ -287,21 +275,8 @@ export default function GalleryPage() {
                   
                   <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="flex items-center justify-between text-white">
-                      <div className="flex items-center space-x-2">
-                        <Eye className="w-4 h-4" />
-                        <span className="text-sm">{item.views}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Heart
-                          className={`w-4 h-4 cursor-pointer ${
-                            likedItems.includes(item.id)
-                              ? "fill-red-500 text-red-500"
-                              : ""
-                          }`}
-                          onClick={() => toggleLike(item.id)}
-                        />
-                        <span className="text-sm">{item.likes}</span>
-                      </div>
+               
+                 
                     </div>
                   </div>
                 </div>
@@ -322,7 +297,7 @@ export default function GalleryPage() {
                         <Button
                           size="sm"
                           className="bg-yellow-500 hover:bg-yellow-600 text-black"
-                          onClick={() => setSelectedItem(item)}
+                          onClick={() => {setSelectedItem(item);navigate.push("https://wa.me/201092758520")}}
                         >
                           عرض
                         </Button>
@@ -350,7 +325,7 @@ export default function GalleryPage() {
                   className={`${
                     selectedCategory === category
                       ? "bg-yellow-500 text-black hover:bg-yellow-600"
-                      : "border-gray-600 text-white hover:bg-yellow-500 hover:text-black"
+                      : "border-gray-600 text-white bg-gray-600 hover:bg-yellow-500 hover:text-black"
                   } transition-all duration-300`}
                   onClick={() => setSelectedCategory(category)}
                 >
@@ -365,10 +340,10 @@ export default function GalleryPage() {
               <Button
                 variant={viewMode === "grid" ? "default" : "outline"}
                 size="sm"
-                className={`${
+                className={` cursor-pointer ${
                   viewMode === "grid"
                     ? "bg-yellow-500 text-black"
-                    : "border-gray-600 text-white hover:bg-yellow-500 hover:text-black"
+                    : "border-gray-600 bg-gray-600 text-white hover:bg-yellow-500 hover:text-black"
                 }`}
                 onClick={() => setViewMode("grid")}
               >
@@ -377,10 +352,10 @@ export default function GalleryPage() {
               <Button
                 variant={viewMode === "list" ? "default" : "outline"}
                 size="sm"
-                className={`${
+                className={`cursor-pointer ${
                   viewMode === "list"
                     ? "bg-yellow-500 text-black"
-                    : "border-gray-600 text-white hover:bg-yellow-500 hover:text-black"
+                    : "border-gray-600 bg-gray-600 text-white hover:bg-yellow-500 hover:text-black"
                 }`}
                 onClick={() => setViewMode("list")}
               >
@@ -450,21 +425,8 @@ export default function GalleryPage() {
 
                   <div className="absolute bottom-2 left-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="flex items-center justify-between text-white">
-                      <div className="flex items-center space-x-1">
-                        <Eye className="w-3 h-3" />
-                        <span className="text-xs">{item.views}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Heart
-                          className={`w-3 h-3 cursor-pointer ${
-                            likedItems.includes(item.id)
-                              ? "fill-red-500 text-red-500"
-                              : ""
-                          }`}
-                          onClick={() => toggleLike(item.id)}
-                        />
-                        <span className="text-xs">{item.likes}</span>
-                      </div>
+                     
+                   
                     </div>
                   </div>
                 </div>
@@ -525,7 +487,7 @@ export default function GalleryPage() {
                         <Button
                           size="sm"
                           className="bg-yellow-500 hover:bg-yellow-600 text-black"
-                          onClick={() => setSelectedItem(item)}
+                          onClick={() => {setSelectedItem(item); navigate.push("https://wa.me/201092758520")}}
                         >
                           عرض تفصيلي
                         </Button>
@@ -608,14 +570,8 @@ export default function GalleryPage() {
                       {new Date(selectedItem.date).toLocaleDateString("ar-EG")}
                     </p>
                   </div>
-                  <div>
-                    <span className="text-gray-400">المشاهدات:</span>
-                    <p className="font-semibold">{selectedItem.views}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">الإعجابات:</span>
-                    <p className="font-semibold">{selectedItem.likes}</p>
-                  </div>
+                 
+         
                 </div>
                 
                 <div className="flex gap-2 pt-4">
