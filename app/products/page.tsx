@@ -131,7 +131,6 @@ const sortOptions = [
   { value: "price-low", label: "السعر: من الأقل للأعلى" },
   { value: "price-high", label: "السعر: من الأعلى للأقل" },
   { value: "name", label: "الاسم" },
-  { value: "rating", label: "التقييم" },
 ];
 
 export default function ProductsPage() {
@@ -165,8 +164,6 @@ export default function ProductsPage() {
           return b.price - a.price;
         case "name":
           return a.name.localeCompare(b.name);
-        case "rating":
-          return (b.rating || 0) - (a.rating || 0);
         default:
           return 0;
       }
@@ -180,16 +177,6 @@ export default function ProductsPage() {
     );
   };
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`w-4 h-4 ${
-          i < rating ? "text-yellow-500 fill-current" : "text-gray-400"
-        }`}
-      />
-    ));
-  };
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -390,11 +377,7 @@ export default function ProductsPage() {
                         <span className="text-sm text-yellow-500 font-semibold">
                           {product.category}
                         </span>
-                        {product.rating && (
-                          <div className="flex items-center gap-1">
-                            {renderStars(product.rating)}
-                          </div>
-                        )}
+                    
                       </div>
 
                       <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-yellow-500 transition-colors duration-300">
@@ -413,13 +396,7 @@ export default function ProductsPage() {
                       </span>
                       
                       <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="border-gray-600 text-gray-400 hover:border-yellow-500 hover:text-yellow-500"
-                        >
-                          <Eye className="w-4 h-4" />
-                        </Button>
+               
                         <Button
                           className={`${
                             product.inStock
