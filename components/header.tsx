@@ -36,7 +36,7 @@ export function Header() {
 
 
         <nav className="hidden md:flex space-x-8">
-          {[{title:"الرئيسية", link:"/Home"}, {title:"المعرض", link:"Gallery"}, {title:"عن فابريكا", link:"About"}, { title:"تواصل معنا", link:"Contact Us"}].map((item) => (
+          {[{title:"الرئيسية", link:"/Home"}, {title:"المنتجات", link:"/products"}, {title:"المعرض", link:"Gallery"}, {title:"عن فابريكا", link:"About"}, { title:"تواصل معنا", link:"Contact Us"}].map((item) => (
             <Link
               key={item.link}
               href={item.link === "Home" ? "/" : `/${item.link.toLowerCase().replace(" ", "-")}`}
@@ -67,7 +67,7 @@ export function Header() {
         }`}
       >
         <nav className="bg-black/95 backdrop-blur-md border-t border-gray-800 px-4 py-4 space-y-4">
-       {[{title:"الرئيسية", link:"/Home"}, {title:"المعرض", link:"Gallery"}, {title:"عن فابريكا", link:"About"}, { title:"تواصل معنا", link:"Contact Us"}].map((item) => (
+       {[{title:"الرئيسية", link:"/Home"}, {title:"المنتجات", link:"/products"}, {title:"المعرض", link:"Gallery"}, {title:"عن فابريكا", link:"About"}, { title:"تواصل معنا", link:"Contact Us"}].map((item) => (
                     <Link
               key={item.link}
               href={item.link === "Home" ? "/" : `/${item.link.toLowerCase().replace(" ", "-")}`}

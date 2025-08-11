@@ -9,7 +9,9 @@ export interface Car {
   image: string
   category: string
   description?: string
-
+  rating?: number
+  inStock?: boolean
+  featured?: boolean
 }
 
 interface CartItem extends Car {
